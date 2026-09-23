@@ -2,6 +2,7 @@ namespace BookSwap;
 
 public class Annons
 {
+    public int Id {  get; set; }
     public string Titel { get; set; } = "";
     public decimal Pris { get; set; }
     public string Skick { get; set; } = "";
@@ -13,7 +14,7 @@ public class Annons
         return Status == "till salu";
     }
 
-    public void Reservera()
+    public void Reservera(Student student)
     {
         Status = "reserverad";
     }

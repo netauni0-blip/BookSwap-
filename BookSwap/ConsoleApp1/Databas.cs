@@ -4,6 +4,7 @@ public class Databas
 {
     private List<Annons> annonser = new List<Annons>();
     private List<Student> studenter = new List<Student>();
+    private List<Affär> affärer = new List<Affär>();
 
     public Annons? HamtaAnnons(int id)
     {
@@ -23,5 +24,10 @@ public class Databas
     public void LäggTillStudent(Student student)
     {
         studenter.Add(student);
+    }
+    
+    public void LäggTillAffär(Affär affär)
+    {
+        affärer.Add(affär);
     }
 }

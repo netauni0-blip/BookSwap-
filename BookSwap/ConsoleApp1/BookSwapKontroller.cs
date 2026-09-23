@@ -2,35 +2,38 @@ namespace BookSwap;
 
 public class BookSwapKontroller
 {
-    private Databas databas; 
-    
-    public BookSwapKontroller(Databas databas)
+    private List<Annons> annonser;
+
+    public BookSwapKontroller(List<Annons> annonser)
     {
-        this.databas = databas;
+        this.annonser = annonser;
     }
 
-    public void ReserveraAnnons(int annonsId)
+    public void ReserveraAnnons(int annonsId, Student student)
     {
-        Annons? annons = databas.HamtaAnnons(annonsId);
-        Student? student = databas.HamtaStudent(studentId);
+        Annons? annons = annonser.FirstOrDefault(a => a.Id == annonsId);
 
-        if (annons != null && student != null)
+        if (annons == null)
         {
-            if (annons.KanReserveras())
+            Console.WriteLine("Annonsen kunde inte hittas.");
+            return;
+        }
+
+        if (annons.KanReserveras())
+        {
+            annons.Reservera(student);
+
+            Affär affär = new Affär
             {
-                annons.Reservera(student);
+                Datum = DateTime.Now,
+                Status = "reserverad"
+            };
 
-                Affär affär = new Affär
-                {
-                    Datum = DateTime.Now,
-                    Status = "reserverad",
-                    Köpare = student,
-                    Säljare = null,
-                    Annons = annons
-                };
-
-                databas.LäggTillAffär(affär);
-            }
+            Console.WriteLine("Annonsen har reserverats.");
+        }
+        else
+        {
+            Console.WriteLine("Annonsen kan inte reserveras.");
         }
     }
 }

@@ -69,7 +69,7 @@ class Program
 
                     break;
 
-                case 0:
+                case 3:
                     kör = false;
                     break;
 

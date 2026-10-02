@@ -13,13 +13,23 @@ class Program
             Telefon = "0701234567"
         };
 
+        Student säljare = new Student
+        {
+            Id = 2,
+            Förnamn = "Erik",
+            Efternamn = "Eriksson",
+            Epost = "erik@example.com",
+            Telefon = "0709999999"
+        };
+
         Annons annons = new Annons
         {
             Id = 1,
             Titel = "Programmering i C#",
             Pris = 200,
             Skick = "Bra",
-            Status = "till salu"
+            Status = "till salu",
+            Säljare = säljare
         };
 
         List<Annons> annonser = new List<Annons>();
@@ -33,7 +43,7 @@ class Program
         {
             Console.Clear();
             Console.WriteLine("=== BookSwap ===");
-            Console.WriteLine("1. Visa annons");
+            Console.WriteLine("1. Visa annonser");
             Console.WriteLine("2. Reservera annons");
             Console.WriteLine("3. Avsluta");
             Console.Write("Välj ett alternativ: ");
@@ -53,13 +63,20 @@ class Program
             {
                 case 1:
                     Console.WriteLine();
-                    Console.WriteLine("Annons:");
-                    Console.WriteLine("ID: " + annons.Id);
-                    Console.WriteLine("Titel: " + annons.Titel);
-                    Console.WriteLine("Pris: " + annons.Pris + " kr");
-                    Console.WriteLine("Skick: " + annons.Skick);
-                    Console.WriteLine("Status: " + annons.Status);
+                    Console.WriteLine("Tillgängliga annonser:");
                     Console.WriteLine();
+
+                    List<Annons> tillgängliga = kontroller.BegärAnnonser();
+
+                    foreach (Annons a in tillgängliga)
+                    {
+                        Console.WriteLine("ID: " + a.Id);
+                        Console.WriteLine("Titel: " + a.Titel);
+                        Console.WriteLine("Pris: " + a.Pris + " kr");
+                        Console.WriteLine("Skick: " + a.Skick);
+                        Console.WriteLine("Status: " + a.Status);
+                        Console.WriteLine();
+                    }
                     break;
 
                 case 2:
@@ -73,12 +90,10 @@ class Program
                     kör = false;
                     break;
 
-                default: 
+                default:
                     Console.WriteLine();
                     Console.WriteLine("Ogiltigt val.");
                     break;
-
-
             }
 
             if (kör)
@@ -92,5 +107,4 @@ class Program
         Console.WriteLine();
         Console.WriteLine("Programmet avslutas.");
     }
-
 }

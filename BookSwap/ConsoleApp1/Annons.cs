@@ -8,6 +8,8 @@ public class Annons
     public string Skick { get; set; } = "";
     public DateTime Publiceringsdatum { get; set; }
     public string Status { get; set; } = "";
+    public Student? Säljare { get; set; }
+
 
     public bool KanReserveras()
     {

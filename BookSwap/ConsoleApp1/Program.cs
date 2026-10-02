@@ -31,38 +31,66 @@ class Program
 
         while (kör)
         {
+            Console.Clear();
             Console.WriteLine("=== BookSwap ===");
             Console.WriteLine("1. Visa annons");
             Console.WriteLine("2. Reservera annons");
             Console.WriteLine("3. Avsluta");
-            Console.Write("Välj: ");
+            Console.Write("Välj ett alternativ: ");
 
-            string? val = Console.ReadLine();
+            string? input = Console.ReadLine();
 
-            if (val == "1")
+            if (!int.TryParse(input, out int val))
             {
                 Console.WriteLine();
-                Console.WriteLine("Annons:");
-                Console.WriteLine("ID: " + annons.Id);
-                Console.WriteLine("Titel: " + annons.Titel);
-                Console.WriteLine("Pris: " + annons.Pris + " kr");
-                Console.WriteLine("Skick: " + annons.Skick);
-                Console.WriteLine("Status: " + annons.Status);
-                Console.WriteLine();
-            }
-            else if (val == "2")
-            {
-                kontroller.ReserveraAnnons(1, student);
-                Console.WriteLine();
-            }
-            else if (val == "3")
-            {
-                kör = false;
-            }
-            else
-            {
                 Console.WriteLine("Ogiltigt val.");
+                Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
+                Console.ReadKey();
+                continue;
+            }
+
+            switch (val)
+            {
+                case 1:
+                    Console.WriteLine();
+                    Console.WriteLine("Annons:");
+                    Console.WriteLine("ID: " + annons.Id);
+                    Console.WriteLine("Titel: " + annons.Titel);
+                    Console.WriteLine("Pris: " + annons.Pris + " kr");
+                    Console.WriteLine("Skick: " + annons.Skick);
+                    Console.WriteLine("Status: " + annons.Status);
+                    Console.WriteLine();
+                    break;
+
+                case 2:
+                    Console.WriteLine();
+
+                    kontroller.ReserveraAnnons(annons.Id, student);
+
+                    break;
+
+                case 0:
+                    kör = false;
+                    break;
+
+                default: 
+                    Console.WriteLine();
+                    Console.WriteLine("Ogiltigt val.");
+                    break;
+
+
+            }
+
+            if (kör)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Tryck på valfri tangent för att gå tillbaka till menyn...");
+                Console.ReadKey();
             }
         }
+
+        Console.WriteLine();
+        Console.WriteLine("Programmet avslutas.");
     }
+
 }

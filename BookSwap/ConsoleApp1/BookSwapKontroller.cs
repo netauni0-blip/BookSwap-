@@ -9,6 +9,11 @@ public class BookSwapKontroller
         this.annonser = annonser;
     }
 
+    public List<Annons> BegärAnnonser()
+    {
+        return annonser;
+    }
+
     public void ReserveraAnnons(int annonsId, Student student)
     {
         Annons? annons = annonser.FirstOrDefault(a => a.Id == annonsId);
@@ -26,7 +31,10 @@ public class BookSwapKontroller
             Affär affär = new Affär
             {
                 Datum = DateTime.Now,
-                Status = "reserverad"
+                Status = "reserverad",
+                Köpare = student,
+                Säljare = annons.Säljare,
+                Annons = annons
             };
 
             Console.WriteLine("Annonsen har reserverats.");
